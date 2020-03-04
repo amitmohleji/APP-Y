@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: petclinic-d
-  namespace: petclinic
+  name: APP-Y-d
+  namespace: APP-X
   labels:
-    app: petclinic
+    app: APP-Y
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: petclinic
+      app: APP-Y
   template:
     metadata:
       labels:
-        app: petclinic
+        app: APP-Y
     spec:
       containers:
-      - image: amitmohleji/petclinic:{{BUILD_NUMBER}}
-        name: petclinic
+      - image: amitmohleji/APP-Y:{{BUILD_NUMBER}}
+        name: APP-Y
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: petclinic
-  namespace: petclinic
+  name: APP-Y
+  namespace: APP-Y
 spec:
   selector: 
-    app: petclinic
+    app: APP-Y
   type: ClusterIP
   ports:
       - port: 8080
@@ -34,12 +34,12 @@ spec:
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: petclinic
-  namespace: petclinic
+  name: APP-Y
+  namespace: APP-Y
 spec:
   to:
     kind: Service
-    name: petclinic
+    name: APP-Y
     weight: 100
   port:
     targetPort: 8080
